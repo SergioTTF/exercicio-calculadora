@@ -2,13 +2,61 @@ package br.ufpe.cin.if710.calculadora
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : Activity() {
+class MainActivity : Activity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        btn_0.setOnClickListener(this)
+        btn_1.setOnClickListener(this)
+        btn_2.setOnClickListener(this)
+        btn_3.setOnClickListener(this)
+        btn_4.setOnClickListener(this)
+        btn_5.setOnClickListener(this)
+        btn_6.setOnClickListener(this)
+        btn_7.setOnClickListener(this)
+        btn_8.setOnClickListener(this)
+        btn_9.setOnClickListener(this)
+        btn_Dot.setOnClickListener(this)
+        btn_Add.setOnClickListener(this)
+        btn_Subtract.setOnClickListener(this)
+        btn_Divide.setOnClickListener(this)
+        btn_Multiply.setOnClickListener(this)
+        btn_LParen.setOnClickListener(this)
+        btn_RParen.setOnClickListener(this)
+        btn_Power.setOnClickListener(this)
+
+        // Dando Clear na calculadora
+
+        btn_Clear.setOnClickListener{
+            text_calc.text.clear()
+            text_info.text = ""}
+
+        //Fazendo avaliação da expressão
+
+        btn_Equal.setOnClickListener{
+            try {
+                text_info.text = eval(text_calc.text.toString()).toString()
+            } catch (e : Exception) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
+
+    // Função que vai adicionar números e operadores na tela
+
+    override fun onClick(view: View?) {
+        val b = view as Button
+        text_calc.text.append(b.text)
+    }
+
+
 
     //Como usar a função:
     // eval("2+2") == 4.0
