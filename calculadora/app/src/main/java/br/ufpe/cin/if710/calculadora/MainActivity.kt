@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity(), View.OnClickListener {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,8 +46,11 @@ class MainActivity : Activity(), View.OnClickListener {
             } catch (e : Exception) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
-
         }
+
+        // Carregando valores persistidos
+        text_calc.setText(savedInstanceState?.getCharSequence("editText"))
+        text_info.text = savedInstanceState?.getCharSequence("textView")
     }
 
     // Função que vai adicionar números e operadores na tela
@@ -56,6 +60,14 @@ class MainActivity : Activity(), View.OnClickListener {
         text_calc.text.append(b.text)
     }
 
+    // Salvando os dados para garantir persistência
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putCharSequence("editText", text_calc.text)
+        outState?.putCharSequence("textView", text_info.text)
+    }
 
 
     //Como usar a função:
